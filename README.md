@@ -30,9 +30,13 @@ In this Guided Activity we will be focusing on the Client-Side and going in dept
          ```
 
 2. **Create our js files:**
-   - Create an HTML file named `index.html`:
-     ```bash
+   - Create a js file named app.js (this will be the entry point of our client side application)
+     ```powershell
      new item app.js
+     ```
+    - Create a js file named requests.js (this will be where we will make our api requests with axios)
+     ```powershell
+     new item requests.js
      ```
    - Open `index.html` in a text editor and set up a basic HTML structure:
      ```html
