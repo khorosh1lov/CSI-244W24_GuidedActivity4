@@ -12,22 +12,27 @@ This repository is a part of CSI-244 at Renton Technical College.
 1. Clone this repository to your machine.
 2. Open the repository in Visual Studio code and follow the instructions below.
 
-Creating a client-side application to communicate with JSON Placeholder (https://jsonplaceholder.typicode.com/) involves setting up a basic HTML and JavaScript project that can make HTTP requests to the JSON Placeholder API. Here's a step-by-step guide:
+In this Guided Activity we will be focusing on the Client-Side and going in depth with a popular request library called AXIOS.
 
 ### Step 1: Set Up Your Project
 
 1. **Create a Project Directory:**
    - Open your terminal or command prompt.
    - Create a new directory for your project and navigate into it:
-     ```bash
-     mkdir jsonplaceholder-client
-     cd jsonplaceholder-client
+     ```powershell
+     mkdir posts-client
+     cd posts-client
+     ```
+    - Create a package.json which we will use to install axios
+     ```powershell
+     npm init -y
+     npm install axios
      ```
 
-2. **Create HTML File:**
+2. **Create our js files:**
    - Create an HTML file named `index.html`:
      ```bash
-     touch index.html
+     new item app.js
      ```
    - Open `index.html` in a text editor and set up a basic HTML structure:
      ```html
