@@ -24,10 +24,10 @@ In this Guided Activity we will be focusing on the Client-Side and going in dept
      cd posts-client
      ```
     - Create a package.json which we will use to install axios
-     ```powershell
-     npm init -y
-     npm install axios
-     ```
+         ```powershell
+         npm init -y
+         npm install axios
+         ```
 
 2. **Create our js files:**
    - Create an HTML file named `index.html`:
