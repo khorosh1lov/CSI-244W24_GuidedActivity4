@@ -41,17 +41,17 @@ In this Guided Activity we will be focusing on the Client-Side and going in dept
     - Create an index.html with the following code bringing in both requests.js and app.js
          ```html
          <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-  </head>
-  <body>
-    <script src="requests.js"></script>
-    <script src="app.js"></script>
-  </body>
-</html>
+            <html lang="en">
+              <head>
+                <meta charset="UTF-8" />
+                <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+                <title>Document</title>
+              </head>
+              <body>
+                <script src="requests.js"></script>
+                <script src="app.js"></script>
+              </body>
+            </html>
          ```
 
 3. **Create JavaScript File:**
