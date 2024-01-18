@@ -29,31 +29,30 @@ In this Guided Activity we will be focusing on the Client-Side and going in dept
          npm install axios
          ```
 
-2. **Create our js files:**
+2. **Client side setup:**
    - Create a js file named app.js (this will be the entry point of our client side application)
      ```powershell
      new item app.js
      ```
     - Create a js file named requests.js (this will be where we will make our api requests with axios)
-     ```powershell
-     new item requests.js
-     ```
-   - Open `index.html` in a text editor and set up a basic HTML structure:
-     ```html
-     <!DOCTYPE html>
-     <html lang="en">
-     <head>
-         <meta charset="UTF-8">
-         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-         <title>JSON Placeholder Client</title>
-     </head>
-     <body>
-         <h1>JSON Placeholder Data</h1>
-         <div id="data"></div>
-         <script src="script.js"></script>
-     </body>
-     </html>
-     ```
+         ```powershell
+         new item requests.js
+         ```
+    - Create an index.html with the following code bringing in both requests.js and app.js
+         ```html
+         <!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script src="requests.js"></script>
+    <script src="app.js"></script>
+  </body>
+</html>
+         ```
 
 3. **Create JavaScript File:**
    - Create a JavaScript file named `script.js`:
