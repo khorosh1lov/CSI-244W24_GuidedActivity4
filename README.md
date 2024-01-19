@@ -27,11 +27,11 @@ In this Guided Activity we will be focusing on the Client-Side and going in dept
 2. **Client side setup:**
    - Create a js file named app.js (this will be the entry point of our client side application)
      ```powershell
-     new item app.js
+     new-item app.js
      ```
     - Create a js file named requests.js (this will be where we will make our api requests with fetch)
          ```powershell
-         new item requests.js
+         new-item requests.js
          ```
     - Create an index.html with the following code bringing in both requests.js and app.js
          ```html
@@ -52,7 +52,7 @@ In this Guided Activity we will be focusing on the Client-Side and going in dept
 3. **Create our re-usable requests library:**
    - We are going to create a re-usable library that can send requests using fetch to any API.
    - Lets create the class and then make our first function. This will be a get function and take in a url as a parameter.
-   - Insde of  `requests.js`:
+   - Inside of  `requests.js`:
      ```JavaScript
      class Requests{
         //This library will use the fetch API to make requests to the server
@@ -73,7 +73,7 @@ In this Guided Activity we will be focusing on the Client-Side and going in dept
    - Lets make a request from app.js using our new library.
    - We will create a new instance of Requests and then call the get() method.
    - The get method returns a promise which we will handle with a then() and a catch()
-   - Insde of  `app.js`:
+   - Inside of  `app.js`:
      ```JavaScript
         const requests = new Requests();
 
@@ -100,7 +100,7 @@ In `requests.js`, we have defined a get request. Let's define a post, put, and d
    - The post method requires both a url and data.
    - A post request sends data through the body.
    - The fetch() method call takes in a url, but can also take in an object with information about the request.
-   - We will used this object to set the request type as well as include the data.
+   - We will use this object to set the request type as well as include the data.
      ```javascript
           //Post request
           //This is an async function. It returns a promise
@@ -124,7 +124,7 @@ In `requests.js`, we have defined a get request. Let's define a post, put, and d
           }
      ```
 2. **Put Request:**
-   - Create a put method. Again, be sure that you are inside of the class but outside of the previous methods we created..
+   - Create a put method. Again, be sure that you are inside of the class but outside of the previous methods we created.
    - A put method is similar to a post in that it requires a url and data
    - A put request sends data through the body.
    - The object passed to the fetch call will define the request method as PUT
@@ -245,7 +245,7 @@ We now have our requests library ready to be used. Lets create a UI
 
 ### Step 4: edit app.js to add functionality to the UI
 
-No we need to associate events with our index.html.
+Now we need to associate events with our index.html.
 
 1. **app.js:**
    - In app.js replace all of the existing code with the following:
