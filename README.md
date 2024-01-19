@@ -67,8 +67,8 @@ In this Guided Activity we will be focusing on the Client-Side and going in dept
             const resData = await response.json();
             //return the data
             return resData;
-            }
-        }
+         }
+     }
      ```
 
 ### Step 2: Write JavaScript to Fetch Data
