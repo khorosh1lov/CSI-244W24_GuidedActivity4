@@ -8,7 +8,7 @@
 
 This repository is a part of CSI-244 at Renton Technical College.
 
-## Guided Activity 4 - Client Side: AJAX, Fetch, AXIOS Requests
+## Guided Activity 4 - Client Side: Fetch
 1. Clone this repository to your machine.
 2. Open the repository in Visual Studio code and follow the instructions below.
 
@@ -23,18 +23,13 @@ In this Guided Activity we will be focusing on the Client-Side and going in dept
      mkdir posts-client
      cd posts-client
      ```
-    - Create a package.json which we will use to install axios
-         ```powershell
-         npm init -y
-         npm install axios
-         ```
 
 2. **Client side setup:**
    - Create a js file named app.js (this will be the entry point of our client side application)
      ```powershell
      new item app.js
      ```
-    - Create a js file named requests.js (this will be where we will make our api requests with axios)
+    - Create a js file named requests.js (this will be where we will make our api requests with fetch)
          ```powershell
          new item requests.js
          ```
@@ -54,10 +49,26 @@ In this Guided Activity we will be focusing on the Client-Side and going in dept
             </html>
          ```
 
-3. **Create JavaScript File:**
-   - Create a JavaScript file named `script.js`:
-     ```bash
-     touch script.js
+3. **Create our re-usable requests library:**
+   - We are going to create a re-usable library that can send requests using fetch to any API.
+   - Lets create the class and then make our first function. This will be a get function and take in a url as a parameter.
+   - The function fetch that url and get a response. We can parse the response to json() data and then return the data
+   - Insde of  `requests.js`:
+     ```JavaScript
+     class Requests{
+        //This library will use the fetch API to make requests to the server
+
+        //Get request
+        //This is an async function
+        async get(url){
+            //await the fetch
+            const response = await fetch(url);
+            //await the response to be converted to json
+            const resData = await response.json();
+            //return the data
+            return resData;
+            }
+        }
      ```
 
 ### Step 2: Write JavaScript to Fetch Data
