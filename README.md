@@ -171,20 +171,211 @@ In `requests.js`, we have defined a get request. Let's define a post, put, and d
             return resData;
           }
      ```
-### Step 3: Open Your Application
+### Step 3: Creating a UI to interact with the posts
 
-- Open `index.html` in a web browser to see the application in action.
-- The browser will display a list of posts fetched from JSON Placeholder.
+We now have our requests library ready to be used. Lets create a UI
 
-### Additional Notes
+1. **User Interface:**
+   - In index.html replace all of the existing code with the following:
+     ```html
+        <!DOCTYPE html>
+        <html lang="en">
+          <head>
+            <meta charset="UTF-8" />
+            <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+            <title>Posts</title>
+            <!-- Bootstrap CSS -->
+            <link
+              href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+              rel="stylesheet"
+              integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+              crossorigin="anonymous"
+            />
+          </head>
+          <body>
+            <div class="container">
+              <h1>Click on a post to see edit or delete it</h1>
+              <!-- Edit a post -->
+              <form id="edit-post-form">
+                <h2>Edit Post</h2>
+                <input type="text" id="editId" disabled />
+                <input type="text" id="userId" disabled />
+                <div class="form-group">
+                  <label for="editTitle">Title</label>
+                  <input type="text" class="form-control" id="editTitle" required />
+                </div>
+                <div class="form-group">
+                  <label for="editContent">Content</label>
+                  <textarea
+                    class="form-control"
+                    id="editContent"
+                    rows="3"
+                    required
+                  ></textarea>
+                </div>
+                <button id="btn-edit-post" type="submit" class="btn btn-primary">
+                  Save Changes
+                </button>
+                <button id="btn-delete-post" class="btn btn-danger">
+                  Delete This Post
+                </button>
+              </form>
+              <h1>Posts</h1>
+        
+              <!-- Display all posts -->
+              <div id="posts">
+                <!-- Posts will be dynamically added here -->
+              </div>
+            </div>
+        
+            <!-- Bootstrap JS -->
+            <script
+              src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+              integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+              crossorigin="anonymous"
+            ></script>
+        
+            <!-- Custom JavaScript -->
+            <script src="requests.js"></script>
+            <script src="app.js"></script>
+          </body>
+        </html>
+     ```
+     - This is simply a basic user interface where we can display the posts as well as some buttons to edit or delete a post.
 
-- **CORS Policy:** JSON Placeholder should handle CORS, allowing you to make requests from your local file. If you encounter CORS issues with other APIs, you might need to serve your HTML file through a local server or use a proxy.
-- **Error Handling:** The `fetch` API example includes basic error handling. Always ensure to handle errors appropriately in real-world applications.
-- **Styling:** You can add CSS to `index.html` or link an external stylesheet to improve the appearance of your application.
-- **Advanced Functionality:** To expand this project, consider adding more features like fetching different types of data (e.g., users, comments), creating a navigation menu to switch between data types, or adding a form to submit data to the API.
+### Step 4: edit app.js to add functionality to the UI
 
-This simple client-side application provides a basic understanding of how to fetch and display data from an external API using vanilla JavaScript and HTML.
+No we need to associate events with our index.html.
 
+1. **app.js:**
+   - In app.js replace all of the existing code with the following:
+   - Make sure to reference the comments in this code if you are unsure how this code works.
+     ```javascript
+        const requests = new Requests();
+        //object to store the retrieved posts
+        let allPosts = [];
+        //object to store the selected post
+        let selectedPost = null;
+        //references for the buttons
+        let deleteButton = document.getElementById("btn-delete-post");
+        deleteButton.addEventListener("click", deletePost);
+        let editButton = document.getElementById("btn-edit-post");
+        editButton.addEventListener("click", editPost);
+        
+        // When the page loads, fetch the posts and display them
+        window.addEventListener("load", () => {
+          requests
+            .get("https://jsonplaceholder.typicode.com/posts/")
+            .then((posts) => {
+              allPosts = posts;
+              console.log(allPosts);
+              displayPosts(allPosts);
+            })
+            .catch((err) => {
+              console.log(err);
+            });
+        });
+        
+        // Function to display posts in the div with id "posts"
+        function displayPosts(posts) {
+          const postsDiv = document.getElementById("posts");
+          postsDiv.innerHTML = "";
+          posts.forEach((post) => {
+            const postElement = document.createElement("div");
+            postElement.textContent = `Id:${post.id} ${post.title}\n${post.body}`;
+            postElement.addEventListener("click", () => {
+              setSelectedPost(post.id);
+            });
+            postsDiv.appendChild(postElement);
+          });
+        }
+        //function which takes an id and sets the selected post to the post with that id
+        //this function will also move the information from that post into the form for editing
+        function setSelectedPost(postId) {
+          //set the selected post to the post that matches postId
+          selectedPost = allPosts.find((post) => post.id === postId);
+          //log just to make sure
+          console.log(selectedPost);
+          // Set the values in the Edit Post form
+          const editForm = document.getElementById("edit-post-form");
+          editForm.elements["editTitle"].value = selectedPost.title;
+          editForm.elements["editContent"].value = selectedPost.body;
+          editForm.elements["editId"].value = selectedPost.id;
+          editForm.elements["userId"].value = selectedPost.userId;
+        }
+        //function that fires when a post is edited
+        function editPost(event) {
+          //do not submit the form
+          event.preventDefault();
+          //make sure a post is selected
+          if (selectedPost === null) {
+            alert("You must select a post to edit");
+            return;
+          }
+          //get the data from the edit post form
+          const editForm = document.getElementById("edit-post-form");
+          const editTitle = editForm.elements["editTitle"].value;
+          const editContent = editForm.elements["editContent"].value;
+          const editId = editForm.elements["editId"].value;
+          const userId = editForm.elements["userId"].value;
+          //create an object with the updated post data
+          const updatedPost = {
+            id: editId,
+            title: editTitle,
+            body: editContent,
+            userId: userId,
+          };
+          //make a put request including the updated post
+          requests
+            .put(`https://jsonplaceholder.typicode.com/posts/${editId}`, updatedPost)
+            .then((response) => {
+              console.log(response);
+              // Update the selected post with the updated values
+              selectedPost.title = editTitle;
+              selectedPost.body = editContent;
+              //update all posts with the updated post
+              allPosts = allPosts.map((post) => {
+                if (post.id === selectedPost.id) {
+                  return selectedPost;
+                } else {
+                  return post;
+                }
+              });
+              // Display the updated post
+              displayPosts(allPosts);
+            })
+            .catch((err) => {
+              console.log(err);
+            });
+        }
+        //function that fires when a post is deleted
+        function deletePost(event) {
+          event.preventDefault();
+          if (selectedPost === null) {
+            alert("You must select a post to delete");
+            return;
+          }
+          const editForm = document.getElementById("edit-post-form");
+          const editId = editForm.elements["editId"].value;
+          requests
+            .delete(`https://jsonplaceholder.typicode.com/posts/${editId}`)
+            .then((response) => {
+              console.log(response);
+              //remove the selected post from all posts
+              allPosts = allPosts.filter((post) => post.id !== selectedPost.id);
+              // Display the updated post
+              displayPosts(allPosts);
+            })
+            .catch((err) => {
+              console.log(err);
+            });
+        }
+
+     ```
+     - This code uses the get(), put() and delete() methods from our requests library.
+     - The window load event makes a get request and retrieves all of the posts.
+     - The editpost() function makes a put request and passes data from the edit form
+     - The deletepost() function makes a delete request and includes the id of the post to be deleted in the url
 
 Create a new commit with the message Guided Activity 4 Complete and push the changes to GitHub
 
