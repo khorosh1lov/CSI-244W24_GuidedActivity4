@@ -91,7 +91,7 @@ Please note: that we are not including our app.js file here, it will be automati
 
 ### Step 2: Initialize the Project and Install Webpack and Handlebars
 
-Initialize the Project by command:
+Initialize the Project by command in your root directory:
 
 ```powershell
 npm init -y
