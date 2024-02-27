@@ -441,7 +441,7 @@ Let's make our posts clickable and dynamically replace content on the same page,
 First, you need to update your `post.handlebars` to make each post unique.
 
 ```handlebars
-<div class="card mb-4 post-item" data-id="{{id}}">
+<div class="card mb-4 post-item" data-id="{{id}}" style="cursor: pointer;">
     <div class="card-body">
         <h2 class="card-title">{{title}}</h2>
         <p class="card-text">{{body}}</p>
